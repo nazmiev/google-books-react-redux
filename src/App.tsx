@@ -9,7 +9,8 @@ import Skeleton from "./components/Book/skeleton";
 import Header from "./components/header";
 import { selectFilter } from "./redux/filter/selectors";
 import Categories from "./components/Categories";
-import { setCategoryId, setCurrentPage } from "./redux/filter/slice";
+// import { setCategoryId, setCurrentPage } from "./redux/filter/slice";
+import { setCategoryId } from "./redux/filter/slice";
 import SortPopup from "./components/Sort";
 
 function App() {
@@ -21,9 +22,9 @@ function App() {
     dispatch(setCategoryId(id));
   }, []);
 
-  const onChangePage = (page: number) => {
-    dispatch(setCurrentPage(page));
-  };
+  // const onChangePage = (page: number) => {
+  //   dispatch(setCurrentPage(page));
+  // };
 
   const getBooks = async () => {
     const sortBy = sort.sortProperty;
