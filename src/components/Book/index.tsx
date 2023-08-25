@@ -39,9 +39,9 @@ const Book: React.FC<BookProps> = ( obj ) => {
   return (
     <>
         <img src={ obj?.volumeInfo?.imageLinks?.smallThumbnail}/><br/>
-        { obj?.volumeInfo?.categories[0] } <br/>
+        { obj?.volumeInfo?.categories?.length ? obj.volumeInfo.categories[0] : '' } <br/>
         { obj?.volumeInfo?.title }<br/>
-        { obj?.volumeInfo?.authors[0] } <br/>
+        { obj?.volumeInfo?.authors?.length ? obj.volumeInfo.authors[0] : '' } <br/>
     </>    
   );
 }

@@ -7,10 +7,13 @@ import { fetchBooks } from "./redux/books/asyncActions";
 import Book from "./components/Book";
 import Skeleton from "./components/Book/skeleton";
 import Header from "./components/header";
+import { selectFilter } from "./redux/filter/selectors";
 
 function App() {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectBooksData);
+  // const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const { searchValue } = useSelector(selectFilter);
 
   // const onChangeCategory = React.useCallback((id: number) => {
   //   dispatch(setCategoryId(id));
@@ -21,16 +24,16 @@ function App() {
   // };
 
   const getBooks = async () => {
+    console.log('getBooks: ', getBooks);
     // const sortBy = 'ask';
     // const category = "";
-    // const search = "";
     // const currentPage = 1;
     // const sortBy = sort.sortProperty;
     // const category = categoryId > 0 ? `category=${categoryId}` : "";
-    // const search = searchValue ? `&search=${searchValue}` : "";
+    const search = searchValue ? searchValue : "";
 
     dispatch(
-      fetchBooks()
+      fetchBooks({search})
     )
     // dispatch(
     //   fetchBooks({
@@ -43,10 +46,14 @@ function App() {
   }
 
   React.useEffect(() => {
+    console.log('useEffect: ');
     getBooks();
-  }, [0, 'ask', '', 1]);
+  }, [searchValue]);
+  // }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const books = items.map((obj: any) => (<Book key={obj.id} {...obj} />));
+  const books = items?.length ? items.map((obj: any) => (<Book key={obj.id} {...obj} />)) : [...new Array(6)].map((_, index) => (
+    <Skeleton key={index} />
+  ));
   const skeletons = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
@@ -60,9 +67,9 @@ function App() {
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort value={sort} />
       </div> */}
-          <h2 className="content__title">Книги</h2>
+          <h2 className="content__title">Books</h2>
           {status === 'error' ?
-            (<h2 className="content__items_error">Ошибка загрузки <span>😕</span></h2>)
+            (<h2 className="content__items_error">no books <span>😕</span></h2>)
             : (<div className="content__items">{status === 'loading' ? skeletons : books}</div>)
           }
           {/* <Pagination currentPage={currentPage} onChangePage={onChangePage} /> */}

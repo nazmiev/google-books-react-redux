@@ -17,7 +17,8 @@ const Search:React.FC = () => {
 
   const updateSearchValue = React.useCallback(
     debounce((str: string) => {
-      dispatch(setSearchValue(str))
+      dispatch(setSearchValue(str));
+      console.log('updateSearchValue: ', str);
     }, 400),
     []
   );
@@ -68,7 +69,7 @@ const Search:React.FC = () => {
         value={value}
         onChange={onChangeInput}
         className={styles.input}
-        placeholder="Поиск пиццы..."
+        placeholder="Поиск книг..."
       />
 
       {value && (
