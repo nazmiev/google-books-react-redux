@@ -1,7 +1,6 @@
 export enum SortPropertyEnum {
-    RATING = "rating",
-    PRICE = "price",
-    TITLE = "title"
+    RELEVANCE = "relevance",
+    NEWEST = "newest"
   }
   
   export type Sort = {
@@ -11,7 +10,7 @@ export enum SortPropertyEnum {
   
   export interface FilterSliceState {
     searchValue: string,
-    categoryId: number,
+    categoryValue: string,
     currentPage: number,
     sort: Sort,
   }

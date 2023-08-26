@@ -9,27 +9,29 @@ import Skeleton from "./components/Book/skeleton";
 import Header from "./components/header";
 import { selectFilter } from "./redux/filter/selectors";
 import Categories from "./components/Categories";
-import { setCategoryId, setCurrentPage } from "./redux/filter/slice";
+import { setCategoryValue, setCurrentPage } from "./redux/filter/slice";
 import SortPopup from "./components/Sort";
 
 function App() {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectBooksData);
-  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
-  const categories = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
+  const { categoryValue, sort, currentPage, searchValue } = useSelector(selectFilter);
+  console.log('App useSelector(selectFilter) categoryValue: ', categoryValue);
 
-  const onChangeCategory = React.useCallback((categories[id]: string) => {
-    dispatch(setCategoryId(categories[id]));
+  const onChangeCategoryValue = React.useCallback((category: string) => {
+    dispatch(setCategoryValue(category));
+    console.log('App onChangeCategory category: ', category);
   }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
   };
+  console.log('onChangePage: ', onChangePage);
 
   const getBooks = async () => {
     const sortBy = sort.sortProperty;
-    const category = categoryId > 0 ? `subject=${categoryId}` : "";
-    const search = searchValue ? `&q=${searchValue}` : "";
+    const category = categoryValue ? `subject=${categoryValue}` : "";
+    const search = searchValue ? `intitle=${searchValue}&` : "";
 
     dispatch(
       fetchBooks({
@@ -43,7 +45,7 @@ function App() {
 
   React.useEffect(() => {
     getBooks();
-  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
+  }, [categoryValue, sort.sortProperty, searchValue, currentPage]);
 
   const books = items?.length ? items.map((obj: any) => (<Book key={obj.id} {...obj} />)) : [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -58,7 +60,7 @@ function App() {
       <div className="content">
         <div className="container">
           <div className="content__top">
-            <Categories value={categoryId} onChangeCategory={onChangeCategory} />
+            <Categories value={categoryValue} onChangeCategoryValue={onChangeCategoryValue} />
             <SortPopup value={sort} />
           </div>
           {status === 'error' ?

@@ -3,11 +3,11 @@ import { FilterSliceState, Sort, SortPropertyEnum } from "./types";
 
 const initialState: FilterSliceState = {
   searchValue: '',
-  categoryId: 0,
+  categoryValue: 'all',
   currentPage: 1,
   sort: {
-    name: "популярности",
-    sortProperty: SortPropertyEnum.RATING,
+    name: "relevance",
+    sortProperty: SortPropertyEnum.RELEVANCE,
   },
 };
 
@@ -15,8 +15,8 @@ const filterSlice = createSlice({
   name: "filters",
   initialState,
   reducers: {
-    setCategoryId(state, action: PayloadAction<number>) {
-      state.categoryId = action.payload;
+    setCategoryValue(state, action: PayloadAction<string>) {
+      state.categoryValue = action.payload;
     },
     setSearchValue(state, action: PayloadAction<string>) {
       state.searchValue = action.payload;
@@ -30,20 +30,20 @@ const filterSlice = createSlice({
     setFilters(state, action: PayloadAction<FilterSliceState>) {
       if (Object.keys(action.payload).length) {
         state.currentPage = Number(action.payload.currentPage);
-        state.categoryId = Number(action.payload.categoryId);
+        state.categoryValue = String(action.payload.categoryValue);
         state.sort = action.payload.sort;
       } else {
         state.currentPage = 1;
-        state.categoryId = 0;
+        state.categoryValue = '';
         state.sort = {
           name: 'популярности',
-          sortProperty: SortPropertyEnum.RATING,
+          sortProperty: SortPropertyEnum.RELEVANCE,
         }
       }
     },
   },
 });
 
-export const { setCategoryId, setSort, setCurrentPage, setFilters, setSearchValue } = filterSlice.actions;
+export const { setCategoryValue, setSort, setCurrentPage, setFilters, setSearchValue } = filterSlice.actions;
 
 export default filterSlice.reducer;
