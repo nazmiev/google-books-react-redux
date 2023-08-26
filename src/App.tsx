@@ -9,26 +9,26 @@ import Skeleton from "./components/Book/skeleton";
 import Header from "./components/header";
 import { selectFilter } from "./redux/filter/selectors";
 import Categories from "./components/Categories";
-// import { setCategoryId, setCurrentPage } from "./redux/filter/slice";
-import { setCategoryId } from "./redux/filter/slice";
+import { setCategoryId, setCurrentPage } from "./redux/filter/slice";
 import SortPopup from "./components/Sort";
 
 function App() {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectBooksData);
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
+  const categories = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
 
-  const onChangeCategory = React.useCallback((id: number) => {
-    dispatch(setCategoryId(id));
+  const onChangeCategory = React.useCallback((categories[id]: string) => {
+    dispatch(setCategoryId(categories[id]));
   }, []);
 
-  // const onChangePage = (page: number) => {
-  //   dispatch(setCurrentPage(page));
-  // };
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
+  };
 
   const getBooks = async () => {
     const sortBy = sort.sortProperty;
-    const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const category = categoryId > 0 ? `subject=${categoryId}` : "";
     const search = searchValue ? `&q=${searchValue}` : "";
 
     dispatch(
