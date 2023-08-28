@@ -36,7 +36,7 @@ const filterSlice = createSlice({
         state.currentPage = 1;
         state.categoryValue = '';
         state.sort = {
-          name: 'популярности',
+          name: 'relevance',
           sortProperty: SortPropertyEnum.RELEVANCE,
         }
       }

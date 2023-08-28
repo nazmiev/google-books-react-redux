@@ -1,13 +1,14 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1vh 1vw;
   text-align: center;
 }
 
 .categories {
   ul {
     display: flex;
+    justify-content: center;
     list-style-type: none;
 
     li {
@@ -37,7 +38,7 @@
 
 .sort {
   position: relative;
-  margin: 0 auto;
+  margin: 2vh auto;
   width: fit-content;
   &__label {
     display: flex;
@@ -89,4 +90,11 @@
       }
     }
   }
+}
+
+.content__items {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
