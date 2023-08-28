@@ -11,34 +11,34 @@ import { selectFilter } from "./redux/filter/selectors";
 import Categories from "./components/Categories";
 import { setCategoryValue, setCurrentPage } from "./redux/filter/slice";
 import SortPopup from "./components/Sort";
+import Loadmore from "./components/Loadmore";
 
 function App() {
   const dispatch = useAppDispatch();
   const { items, status } = useSelector(selectBooksData);
   const { categoryValue, sort, currentPage, searchValue } = useSelector(selectFilter);
-  console.log('App useSelector(selectFilter) categoryValue: ', categoryValue);
 
   const onChangeCategoryValue = React.useCallback((category: string) => {
     dispatch(setCategoryValue(category));
-    console.log('App onChangeCategory category: ', category);
   }, []);
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
+    console.log('onChangePage page: ', page);
   };
-  console.log('onChangePage: ', onChangePage);
 
   const getBooks = async () => {
     const sortBy = sort.sortProperty;
     const category = categoryValue ? `subject=${categoryValue}` : "";
     const search = searchValue ? `intitle=${searchValue}&` : "";
+    const currentPageValue = currentPage != 1 ? `&startIndex=${20 * currentPage}&` : "";
 
     dispatch(
       fetchBooks({
         sortBy,
         category,
         search,
-        currentPage: String(currentPage),
+        currentPage: String(currentPageValue),
       })
     )
   }
@@ -46,6 +46,7 @@ function App() {
   React.useEffect(() => {
     getBooks();
   }, [categoryValue, sort.sortProperty, searchValue, currentPage]);
+  // }, [categoryValue, sort.sortProperty, searchValue ]);
 
   const books = items?.length ? items.map((obj: any) => (<Book key={obj.id} {...obj} />)) : [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
@@ -70,6 +71,7 @@ function App() {
               <div className="content__items">{status === 'loading' ? skeletons : books}</div>
             </>)
           }
+          <Loadmore currentPage={currentPage} onChangePage={onChangePage} />
           {/* <Pagination currentPage={currentPage} onChangePage={onChangePage} /> */}
         </div>
       </div>
