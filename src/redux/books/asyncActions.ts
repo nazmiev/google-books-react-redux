@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { Books, BooksResponse, SearchBooksParams } from "./types";
+import { BooksResponse, SearchBooksParams } from "./types";
 import axios from "axios";
 
 export const fetchBooks = createAsyncThunk<BooksResponse, SearchBooksParams>(

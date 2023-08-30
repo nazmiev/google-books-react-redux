@@ -34,7 +34,6 @@ function App() {
           startIndex: currentPage != 1 ? 30 * currentPage : 0,
           sortBy: sort.sortProperty
     }
-
     dispatch(fetchBooks(params))
   }
 
@@ -42,12 +41,8 @@ function App() {
     getBooks();
   }, [categoryValue, sort.sortProperty, searchValue, currentPage]);
 
-  const books = items?.length ? items.map((obj: any) => (<Book key={obj.id} {...obj} />)) : [...new Array(6)].map((_, index) => (
-    <Skeleton key={index} />
-  ));
-  const skeletons = [...new Array(6)].map((_, index) => (
-    <Skeleton key={index} />
-  ));
+  const books = items.map((obj: any) => (<Book key={obj.id} {...obj} />));
+  const skeletons = [...new Array(6)].map((_, index) => (<Skeleton key={index} />));
 
   return (
     <div className="wrapper">
