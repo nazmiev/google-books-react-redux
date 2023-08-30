@@ -35,15 +35,3 @@ const booksSlice = createSlice({
 export const { setItems } = booksSlice.actions;
 
 export default booksSlice.reducer;
-
-//     switch (action.type) {
-//        case FETCH_LISTINGS_SUCCESS:
-//             return {
-//               ..state,
-//               pageSize: state.pageSize + 10,
-//               listings: [...listings, ...action.listings]
-//             });
-//           default:
-//             return state
-//        }
-//   }

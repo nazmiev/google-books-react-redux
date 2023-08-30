@@ -22,7 +22,6 @@ export interface BooksSliceState {
     status: Status;
 }
 
-
 export type SearchBooksParams = {
     sortBy: string, 
     subject: string, 
