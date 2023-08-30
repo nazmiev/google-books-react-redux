@@ -1,12 +1,15 @@
 .categories {
   ul {
     display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
     justify-content: center;
     list-style-type: none;
 
     li {
       background-color: #f9f9f9;
       padding: 13px 30px;
+      padding: calc(min(13px,2vh)) calc(min(30px,5vw));
       border-radius: 30px;
       margin-right: 10px;
       font-weight: bold;
