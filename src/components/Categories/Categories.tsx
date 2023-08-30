@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./Categories.module.scss"
 
 type CategoriesProps = {
   value: string;
@@ -10,7 +11,7 @@ const categories = ['all', 'art', 'biography', 'computers', 'history', 'medical'
 const Categories: React.FC<CategoriesProps> = React.memo(
   ({ value, onChangeCategoryValue }) => {
     return (
-      <div className="categories">
+      <div className={styles.categories}>
         <ul>
           {categories.map((categoryName, i) => (
             <li key={i} onClick={() => onChangeCategoryValue(categoryName)} className={value === categoryName ? "active" : ""}>

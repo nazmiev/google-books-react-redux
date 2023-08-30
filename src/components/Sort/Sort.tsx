@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Sort, SortPropertyEnum } from "../redux/filter/types";
-import { setSort } from "../redux/filter/slice";
+import { Sort, SortPropertyEnum } from "../../redux/filter/types";
+import { setSort } from "../../redux/filter/slice";
+import styles from "./Sort.module.scss"
 
 type SortItem = {
   name: string;
@@ -46,20 +47,20 @@ const SortPopup:React.FC<SortPopupProps> = React.memo(
     }, [])
   
     return (
-      <div ref={sortRef} className="sort">
-        <div className="sort__label">
+      <div ref={sortRef} className={styles.sort}>
+        <div className={styles.sort__label}>
           <b>Sort by: </b>
           <span onClick={() => setOpen(!open)}>{value.name}</span>
         </div>
         {open && (
-          <div className="sort__popup">
+          <div className={styles.sort__popup}>
             <ul>
               {sortList.map((obj, i) => (
                 <li
                   key={i}
                   onClick={() => onClickListItems(obj)}
                   className={
-                    value.sortProperty === obj.sortProperty ? "active" : ""
+                    value.sortProperty === obj.sortProperty ? styles.active : ""
                   }
                 >
                   {obj.name}
