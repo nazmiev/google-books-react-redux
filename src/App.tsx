@@ -67,12 +67,9 @@ function App() {
             </>)
           }
           <Loadmore currentPage={currentPage} onChangePage={onChangePage} />
-          {/* <Pagination currentPage={currentPage} onChangePage={onChangePage} /> */}
         </div>
       </div>
     </div>
-
-
   );
 };
 
