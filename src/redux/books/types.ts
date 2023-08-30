@@ -25,7 +25,7 @@ export interface BooksSliceState {
 
 export type SearchBooksParams = {
     sortBy: string, 
-    category: string, 
-    search: string, 
-    currentPage: string
+    subject: string, 
+    q: string, 
+    startIndex: number
 }

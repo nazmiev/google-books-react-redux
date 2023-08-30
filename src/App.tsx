@@ -12,6 +12,7 @@ import Categories from "./components/Categories";
 import { setCategoryValue, setCurrentPage } from "./redux/filter/slice";
 import SortPopup from "./components/Sort";
 import Loadmore from "./components/Loadmore";
+import { SearchBooksParams } from "./redux/books/types";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -24,29 +25,23 @@ function App() {
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
-    console.log('onChangePage page: ', page);
   };
 
   const getBooks = async () => {
-    const sortBy = sort.sortProperty;
-    const category = categoryValue ? `subject=${categoryValue}` : "";
-    const search = searchValue ? `intitle=${searchValue}&` : "";
-    const currentPageValue = currentPage != 1 ? `&startIndex=${20 * currentPage}&` : "";
+    const params: SearchBooksParams = {
+          q: searchValue ? searchValue : "*",
+          subject: categoryValue ? categoryValue : "",
+          startIndex: currentPage != 1 ? 30 * currentPage : 0,
+          sortBy: sort.sortProperty
+    }
 
     dispatch(
-      fetchBooks({
-        sortBy,
-        category,
-        search,
-        currentPage: String(currentPageValue),
-      })
-    )
+      fetchBooks(params))
   }
 
   React.useEffect(() => {
     getBooks();
   }, [categoryValue, sort.sortProperty, searchValue, currentPage]);
-  // }, [categoryValue, sort.sortProperty, searchValue ]);
 
   const books = items?.length ? items.map((obj: any) => (<Book key={obj.id} {...obj} />)) : [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
