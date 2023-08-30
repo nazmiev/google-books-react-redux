@@ -28,5 +28,6 @@ export type SearchBooksParams = {
     sortBy: string, 
     subject: string, 
     q: string, 
-    startIndex: number
+    startIndex: number,
+    maxResults: number,
 }

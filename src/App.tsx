@@ -10,6 +10,7 @@ import Book from "./components/Book";
 import Skeleton from "./components/Book/skeleton";
 import Loadmore from "./components/Loadmore";
 import Header from "./components/Header/header";
+// import { setCurrentPage } from "./redux/filter/slice";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -20,8 +21,9 @@ function App() {
     const params: SearchBooksParams = {
           q: searchValue ? searchValue : "*",
           subject: categoryValue ? categoryValue : "",
+          sortBy: sort.sortProperty,
           startIndex: currentPage != 1 ? 30 * currentPage : 0,
-          sortBy: sort.sortProperty
+          maxResults: 30,
     }
     dispatch(fetchBooks(params))
   }
@@ -32,6 +34,19 @@ function App() {
   
   const books = items.map((obj: any) => (<Book key={obj.id} {...obj} />));
   const skeletons = [...new Array(6)].map((_, index) => (<Skeleton key={index} />));
+
+  // const searchBooks = () => {
+  //   setItems([]);
+  //   setCurrentPage(0);
+  //   getBooks();
+  // }
+
+  // const loadMore = () => {
+  //   setCurrentPage(currentPage + 1);
+  //   getBooks();
+  // }
+
+  // getBooks();
 
   return (
     <>
