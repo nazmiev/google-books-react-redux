@@ -1,25 +1,24 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Sort, SortPropertyEnum } from "../../redux/filter/types";
+import { useDispatch, useSelector } from "react-redux";
+import { SortPropertyEnum } from "../../redux/filter/types";
 import { setSort } from "../../redux/filter/slice";
 import styles from "./Sort.module.scss"
+import { selectFilter } from "../../redux/filter/selectors";
 
 type SortItem = {
   name: string;
   sortProperty: SortPropertyEnum;
 }
 
-type SortPopupProps = {
-  value: Sort
-}
 
 export const sortList: SortItem[] = [
   { name: "relevance", sortProperty: SortPropertyEnum.RELEVANCE },
   { name: "newest", sortProperty: SortPropertyEnum.NEWEST },
 ];
 
-const SortPopup:React.FC<SortPopupProps> = React.memo(
-  ({ value }) => {
+const SortPopup:React.FC = React.memo(
+  ({ }) => {
+    const { sort } = useSelector(selectFilter);
     const dispatch = useDispatch();
     const sortRef = React.useRef<HTMLDivElement>(null);
   
@@ -50,7 +49,7 @@ const SortPopup:React.FC<SortPopupProps> = React.memo(
       <div ref={sortRef} className={styles.sort}>
         <div className={styles.sort__label}>
           <b>Sort by: </b>
-          <span onClick={() => setOpen(!open)}>{value.name}</span>
+          <span onClick={() => setOpen(!open)}>{sort.name}</span>
         </div>
         {open && (
           <div className={styles.sort__popup}>
@@ -60,7 +59,7 @@ const SortPopup:React.FC<SortPopupProps> = React.memo(
                   key={i}
                   onClick={() => onClickListItems(obj)}
                   className={
-                    value.sortProperty === obj.sortProperty ? styles.active : ""
+                    sort.sortProperty === obj.sortProperty ? styles.active : ""
                   }
                 >
                   {obj.name}

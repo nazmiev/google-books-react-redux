@@ -29,7 +29,7 @@ function App() {
   React.useEffect(() => {
     getBooks();
   }, [categoryValue, sort.sortProperty, searchValue, currentPage]);
-
+  
   const books = items.map((obj: any) => (<Book key={obj.id} {...obj} />));
   const skeletons = [...new Array(6)].map((_, index) => (<Skeleton key={index} />));
 

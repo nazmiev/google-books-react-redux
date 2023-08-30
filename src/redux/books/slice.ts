@@ -25,6 +25,7 @@ const booksSlice = createSlice({
         });
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
             state.status = Status.SUCCESS;
+            // state.items = [ ...state.items, ...action.payload.items];
             state.items = action.payload.items;
             state.counter = action.payload.totalItems;
         });
