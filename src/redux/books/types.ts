@@ -9,6 +9,7 @@ export type Books = {
 
 export type BooksResponse = {
     items: Books[];
+    totalItems: number;
 }
 
 export enum Status {
@@ -19,6 +20,7 @@ export enum Status {
 
 export interface BooksSliceState {
     items: Books[];
+    counter: number;
     status: Status;
 }
 

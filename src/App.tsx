@@ -16,7 +16,7 @@ import { SearchBooksParams } from "./redux/books/types";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { items, status } = useSelector(selectBooksData);
+  const { items, counter, status } = useSelector(selectBooksData);
   const { categoryValue, sort, currentPage, searchValue } = useSelector(selectFilter);
 
   const onChangeCategoryValue = React.useCallback((category: string) => {
@@ -35,8 +35,7 @@ function App() {
           sortBy: sort.sortProperty
     }
 
-    dispatch(
-      fetchBooks(params))
+    dispatch(fetchBooks(params))
   }
 
   React.useEffect(() => {
@@ -62,7 +61,7 @@ function App() {
           {status === 'error' ?
             (<h2 className="content__items_error">no books <span>😕</span></h2>)
             : (<>
-              <h2 className="content__title">Books</h2>
+              <h2 className="content__title">Books found {counter}</h2>
               <div className="content__items">{status === 'loading' ? skeletons : books}</div>
             </>)
           }

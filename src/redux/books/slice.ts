@@ -4,8 +4,9 @@ import { fetchBooks } from "./asyncActions";
 
 
 const initialState: BooksSliceState = {
-    items: [],
     status: Status.LOADING,
+    items: [],
+    counter: 0,
 };
 
 const booksSlice = createSlice({
@@ -20,14 +21,17 @@ const booksSlice = createSlice({
         builder.addCase(fetchBooks.pending, (state) => {
             state.status = Status.LOADING;
             state.items = [];
+            state.counter = 0;
         });
         builder.addCase(fetchBooks.fulfilled, (state, action) => {
-            state.items = action.payload;
             state.status = Status.SUCCESS;
+            state.items = action.payload.items;
+            state.counter = action.payload.totalItems;
         });
         builder.addCase(fetchBooks.rejected, (state) => {
             state.status = Status.ERROR;
             state.items = [];
+            state.counter = 0;
         })
     }
 });
